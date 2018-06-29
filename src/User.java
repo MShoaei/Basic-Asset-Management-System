@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.UnknownServiceException;
+import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -20,7 +17,6 @@ public class User {
         }
         catch (Exception e){
             e.getStackTrace();
-//            this.setPassword();
         }
     }
 
@@ -31,8 +27,12 @@ public class User {
         lastID = ID;
     }
 
-    static void saveUsers(ArrayList<User> users){
-
+    static void saveUsers(ArrayList<User> users) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase\\UsersWrite"));
+        for(User user : users){
+            writer.write(user.toString() + "\n");
+        }
+        writer.close();
     }
 
     static ArrayList<User> loadUsers() throws IOException {
