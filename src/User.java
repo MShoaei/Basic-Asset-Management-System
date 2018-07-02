@@ -8,9 +8,13 @@ public class User {
     private int ID;
     private String userName;
     private String password;
+    private boolean isAdmin;
 
-    User(String userName, String password) {
+    User(String userName, String password, boolean createAdmin) {
         try {
+            if (createAdmin && ASM.getCurrentUser().getIsAdmin()){
+                this.isAdmin = true;
+            }
             this.ID = ++lastID;
             this.userName = userName;
             this.password = sha256(password);
@@ -20,9 +24,10 @@ public class User {
         }
     }
 
-    private User(String userName, String password, int id){
+    private User(String userName, String password, int id, boolean isAdmin){
         this.userName = userName;
         this.password = password;
+        this.isAdmin = isAdmin;
         this.ID = id;
         lastID = ID;
     }
@@ -39,8 +44,10 @@ public class User {
         ArrayList<User> users = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader("DataBase\\Users"));
         String line;
+        boolean isAdmin;
         while ((line = reader.readLine()) != null){
-            users.add(new User(line.split(":")[1],line.split(":")[2],Integer.parseInt(line.split(":")[0])));
+            isAdmin =  Boolean.parseBoolean(line.split(":")[3]);
+            users.add(new User(line.split(":")[1],line.split(":")[2], Integer.parseInt(line.split(":")[0]), isAdmin));
         }
         return users;
     }
@@ -71,7 +78,11 @@ public class User {
 
     @Override
     public String toString(){
-        return String.format("%d:%s:%s",
-                getID(), getUserName(), getPassword());
+        return String.format("%d:%s:%s:%s",
+                getID(), getUserName(), getPassword(), getIsAdmin());
+    }
+
+    public boolean getIsAdmin() {
+        return isAdmin;
     }
 }

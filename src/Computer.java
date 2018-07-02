@@ -168,7 +168,7 @@ public class Computer extends Asset {
 
     @Override
     public String toString(){
-        return String.format("Computer; Model: %s, CPU: %s, RAM: %s, Hard: %s, GPU: %s, State: %s, Location: %s, BDate: %s",
+        return String.format("Computer; Model: %-10.9s, CPU: %-10.8s, RAM: %-8.6s, Hard: %-8.8s, GPU: %-6.6s, State: %-10.9s, Location: %-15.13s, BDate: %-10s",
                 getModel(), getCPU(), getRAM(), getHard(), getGPU(), getState(), getLocation(), getBDate());
     }
 }
