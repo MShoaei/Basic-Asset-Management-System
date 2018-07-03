@@ -2,6 +2,7 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class User {
     private static int lastID = 0;
@@ -30,6 +31,32 @@ public class User {
         this.isAdmin = isAdmin;
         this.ID = id;
         lastID = ID;
+    }
+
+    void edit(){
+        try {
+            setUserName();
+            setPassword();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void setPassword() throws NoSuchAlgorithmException{
+        Scanner input = new Scanner(System.in);
+        String password;
+        while (true) {
+            System.out.print("Enter new password: ");
+            password = sha256(input.nextLine());
+            System.out.print("Re-type password: ");
+            if (sha256(input.nextLine()).equals(password)) {
+                this.password = password;
+                break;
+            }
+            else
+                System.out.println("Passwords did not match.");
+        }
+
     }
 
     static void saveUsers(ArrayList<User> users) throws IOException {
@@ -63,9 +90,20 @@ public class User {
         return sb.toString();
     }
 
-
     public int getID() {
         return ID;
+    }
+
+    private void setUserName(){
+        Scanner input = new Scanner(System.in);
+        String username;
+        System.out.print("New username: ");
+        username = input.nextLine();
+        while (ASM.findUserByName(username) != null){
+            System.out.println("Username already exists. Try another username: ");
+            username = input.nextLine();
+        }
+        this.userName = username;
     }
 
     public String getUserName() {
