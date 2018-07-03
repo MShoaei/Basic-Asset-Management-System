@@ -22,9 +22,6 @@ public class ASM {
         catch (Exception e){
             e.getStackTrace();
         }
-        finally {
-            saveAllData();
-        }
     }
 
     static User findUserByName(String username) {

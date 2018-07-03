@@ -20,13 +20,14 @@ class RepairReport {
         this.setAssetName(args[1].split(":")[1]);
         this.setCause(args[2].split(":")[1]);
         this.setRepairMethod(args[3].split(":")[1]);
-        this.repairDate = LocalDate.parse(args[4]);
-        this.setEngineerID(Integer.parseInt(args[5]));
+        this.setEngineerID(Integer.parseInt(args[4]));
+        this.repairDate = LocalDate.parse(args[5]);
         lastID = Integer.parseInt(args[0]);
         this.setID(lastID);
     }
 
     RepairReport(Asset asset) {
+        this.ID = ++lastID;
         this.repairDate = LocalDate.now();
         setAssetType(AssetType.valueOf(asset.getClass().getSimpleName().toUpperCase()));
         setAssetName();
@@ -50,12 +51,6 @@ class RepairReport {
         String line;
         while ((line = reader.readLine()) != null){
             reports.add(new RepairReport(line.split(";")));
-            /*reports.add(new RepairReport(Integer.parseInt(line.split(";")[0]),
-                                        Integer.parseInt(line.split(";")[5]),
-                                        AssetType.valueOf(line.split(";")[1].split(":")[0].toUpperCase()),
-                                        line.split(";")[2],
-                                        line.split(";")[3],
-                                        line.split(";")[4]));*/
         }
         return reports;
     }
@@ -129,6 +124,6 @@ class RepairReport {
 
     @Override
     public String toString() {
-        return String.format("%d;%s: %s;Cause: %s; Method: %s;%s",getID(), getAssetType(), getAssetName(), getCause(), getRepairMethod(), getRepairDate());
+        return String.format("%d;%s: %s;Cause: %s;Method: %s;%s",getID(), getAssetType(), getAssetName(), getCause(), getRepairMethod(), getRepairDate());
     }
 }

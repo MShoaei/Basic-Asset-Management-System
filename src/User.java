@@ -99,7 +99,7 @@ public class User {
         String username;
         System.out.print("New username: ");
         username = input.nextLine();
-        while (ASM.findUserByName(username) != null){
+        while (!this.userName.toLowerCase().equals(username.toLowerCase()) && ASM.findUserByName(username) != null){
             System.out.println("Username already exists. Try another username: ");
             username = input.nextLine();
         }

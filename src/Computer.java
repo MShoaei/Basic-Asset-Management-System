@@ -49,10 +49,6 @@ public class Computer extends Asset {
         editLocation();
     }
 
-
-
-
-
     private void editGPU() {
         Scanner sc = new Scanner(System.in);
         String input;
@@ -90,11 +86,10 @@ public class Computer extends Asset {
     }
 
     private void setModel() {
-
         System.out.print("Model: ");
         String model = new Scanner(System.in).nextLine();
 //        if model valid
-        super.setModel(model);
+        setModel(model);
     }
 
 

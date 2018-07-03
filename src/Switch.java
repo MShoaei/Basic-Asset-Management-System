@@ -66,7 +66,6 @@ public class Switch extends Asset{
     private void setPorts(){
         System.out.print("Ports: ");
         this.ports = new Scanner(System.in).nextInt();
-
     }
 
     private void setPorts(int ports) {
@@ -99,7 +98,7 @@ public class Switch extends Asset{
     @Override
     public String toString(){
         return String.format("ID: %d Switch; Model: %-10.9s, Ports: %-5d, Manageable: %-5s, State: %-10.9s, Location: %-11.10s, %-11.10s, %-11.10s, BDate: %-10s",
-                getID(),getModel(), getPorts(), getState(), isManageable(),
+                getID(),getModel(), getPorts(), isManageable(), getState(),
                 getLocation().getSchool(), getLocation().getOwner(),
                 getLocation().getHoldingPlace(),
                 getBDate());

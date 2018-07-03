@@ -17,7 +17,11 @@ public class Printer extends Asset {
     }
 
     private void createPrinter() {
+        System.out.println("Please provide the required information:");
+        setModel();
         setColor();
+        setState(AssetType.PRINTER);
+        setLocation();
     }
 
     void edit() {
@@ -26,6 +30,13 @@ public class Printer extends Asset {
         editColor();
         editState();
         editLocation();
+    }
+
+    private void setModel() {
+        System.out.print("Model: ");
+        String model = new Scanner(System.in).nextLine();
+//        if model valid
+        setModel(model);
     }
 
     public boolean isColor() {
@@ -52,7 +63,7 @@ public class Printer extends Asset {
     String toString(boolean isSaving){
         if(isSaving){
             Location temp = getLocation();
-            return String.format("Switch;%d:%s:%b:%s:%s,%s,%s:%s\n",
+            return String.format("Printer;%d:%s:%b:%s:%s,%s,%s:%s\n",
                     getID(), getModel(), isColor(), getState(),
                     temp.getSchool(), temp.getOwner(), temp.getHoldingPlace(), getBDate());
         }
