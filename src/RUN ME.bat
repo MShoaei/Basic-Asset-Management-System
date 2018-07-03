@@ -1,3 +1,3 @@
-javac -d .. *.javac
+javac -d .. *.java
 cd ..
 java ASM
