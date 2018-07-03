@@ -31,7 +31,7 @@ public class Computer extends Asset {
         setRAM();
         setHard();
         setGPU();
-        setState();
+        setState(AssetType.COMPUTER);
         setLocation();
         // BDate
 
@@ -47,29 +47,11 @@ public class Computer extends Asset {
         editGPU();
         editState();
         editLocation();
-
     }
 
-    private void editLocation() {
-        Scanner sc = new Scanner(System.in);
-        String input;
-        System.out.print("Enter new location (School,Owner,HoldingPlace): ");
-        input = sc.nextLine();
-        if (!input.equals("")){
-            if (input.split("\\s*,\\s*").length == 3) {
-                this.setLocation(input.split("\\s*,\\s*"));
-            }
-        }
-    }
 
-    private void editState() {
-        Scanner sc = new Scanner(System.in);
-        String input;
-        System.out.print("Enter State: ");
-        input = sc.nextLine();
-        if (!input.equals(""))
-            setState(input);
-    }
+
+
 
     private void editGPU() {
         Scanner sc = new Scanner(System.in);
@@ -107,9 +89,7 @@ public class Computer extends Asset {
             setCPU(input);
     }
 
-    //protected void retire(){}
-
-    private void setModel(){
+    private void setModel() {
 
         System.out.print("Model: ");
         String model = new Scanner(System.in).nextLine();
@@ -117,59 +97,6 @@ public class Computer extends Asset {
         super.setModel(model);
     }
 
-    private void setLocation(){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter location information: ");
-
-        System.out.print("  school: ");
-        String school = input.nextLine();
-
-        System.out.print("  owner: ");
-        String owner = input.nextLine();
-
-        System.out.print("  holdingPlace: ");
-        String holdingPlace = input.nextLine();
-
-        super.setLocation(new Location(school, owner, holdingPlace));
-    }
-
-    @Override
-    protected void setLocation(String[] location){
-        if (location == null) return;
-
-        setLocation(new Location(location[0], location[1], location[2]));
-    }
-
-    private void setState(){
-        int choice;
-        do {
-
-            System.out.println("Select the current state of this computer ");
-            System.out.println("1- Healthy");
-            System.out.println("2- Broken");
-            System.out.println("3- Retired");
-            System.out.print("Enter the number: ");
-            choice = new Scanner(System.in).nextInt(); // is it efficient?
-        }
-        while (choice>3 || choice<1);
-
-        switch (choice) {
-            case 1:
-                super.setState(State.HEALTHY);
-                break;
-            case 2:
-                super.setState(State.BROKEN);
-                break;
-            case 3:
-                super.setState(State.RETIRED);
-                break;
-        }
-
-    }
-
-    void setState(String state){
-        super.setState(State.valueOf(state.toUpperCase()));
-    }
 
     private boolean validInput(String s){
         // TODO: Should be implemented for input validation like empty strings etc..
@@ -230,7 +157,7 @@ public class Computer extends Asset {
         this.GPU = gpu;
     }
 
-    public String toString(boolean isSaving){
+    String toString(boolean isSaving){
         if(isSaving){
             Location temp = getLocation();
             return String.format("Computer;%d:%s:%s:%s:%s:%s:%s:%s,%s,%s:%s\n",

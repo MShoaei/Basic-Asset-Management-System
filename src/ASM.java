@@ -13,20 +13,18 @@ public class ASM {
     private static ArrayList<RepairReport> reports;
 
     public static void main(String[] args) {
-
         try {
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            loadAllData();
+            signIn();
+            while (true)
+                showMenu();
         }
-    }
-
-    static User findUserByID(int id){
-        for (User user:users){
-            if (user.getID()== id )
-                return user;
+        catch (Exception e){
+            e.getStackTrace();
         }
-        return null;
+        finally {
+            saveAllData();
+        }
     }
 
     static User findUserByName(String username) {
@@ -100,6 +98,7 @@ public class ASM {
             System.out.println("6- Retire an Asset");
             System.out.println("7- Reports");
             System.out.println("8- Exit");
+            System.out.print("Enter your choice: ");
             choice = input.nextInt();
         }
         while (choice < 1 || choice > 8);
@@ -149,18 +148,25 @@ public class ASM {
             switch (choice) {
                 case 1:
                     viewAllAssets();
+                    break;
                 case 2:
                     fillReport();
+                    break;
                 case 3:
                     addAsset();
+                    break;
                 case 4:
                     editAsset();
+                    break;
                 case 5:
                     changePassword();
+                    break;
                 case 6:
                     retireAsset();
+                    break;
                 case 7:
                     displayReports();
+                    break;
                 case 8:
                     saveAllData();
                     System.out.println("Everything is saved.");
@@ -210,6 +216,10 @@ public class ASM {
             case 6:
                 findReportByCause();
                 break;
+            case 7:
+                saveAllData();
+                System.out.println("Everything is saved!");
+                System.exit(0);
 
         }
     }
@@ -369,7 +379,7 @@ public class ASM {
         }
     }
 
-    private static void editAsset(){
+    private static void editAsset() {
         Asset asset;
         System.out.print("Enter the asset's ID: ");
         asset = findAssetByID(new Scanner(System.in).nextInt());
@@ -382,10 +392,10 @@ public class ASM {
                 ((Computer)asset).edit();
                 break;
             case "SWITCH":
-//                ((Switch)asset).edit();
+                ((Switch)asset).edit();
                 break;
             case "PRINTER":
-//                ((Printer)asset).edit();
+                ((Printer)asset).edit();
                 break;
         }
 

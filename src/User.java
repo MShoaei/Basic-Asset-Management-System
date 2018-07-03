@@ -30,7 +30,7 @@ public class User {
         this.password = password;
         this.isAdmin = isAdmin;
         this.ID = id;
-        lastID = ID;
+        lastID = this.ID;
     }
 
     void edit(){
@@ -60,7 +60,7 @@ public class User {
     }
 
     static void saveUsers(ArrayList<User> users) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase\\UsersWrite"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase\\Users"));
         for(User user : users){
             writer.write(user.toString() + "\n");
         }

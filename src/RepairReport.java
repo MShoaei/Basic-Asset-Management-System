@@ -37,7 +37,7 @@ class RepairReport {
 
 
     static void saveReports(ArrayList<RepairReport> reports) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase\\ReportsWrite"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase\\Reports"));
         for (RepairReport report:reports){
             writer.write(report.toString());
         }
@@ -64,7 +64,7 @@ class RepairReport {
         return ID;
     }
 
-    public void setID(int ID) {
+    private void setID(int ID) {
         this.ID = ID;
     }
 
@@ -84,11 +84,11 @@ class RepairReport {
         return cause;
     }
 
-    public void setCause(String cause) {
+    private void setCause(String cause) {
         this.cause = cause;
     }
 
-    public void setCause() {
+    private void setCause() {
         System.out.print("Cause of the problem: ");
         this.cause = new Scanner(System.in).nextLine();
     }
@@ -97,11 +97,11 @@ class RepairReport {
         return repairMethod;
     }
 
-    public void setRepairMethod(String repairMethod) {
+    private void setRepairMethod(String repairMethod) {
         this.repairMethod = repairMethod;
     }
 
-    public void setRepairMethod() {
+    private void setRepairMethod() {
         System.out.print("The repair method: ");
         this.repairMethod = new Scanner(System.in).nextLine();
     }
@@ -118,11 +118,11 @@ class RepairReport {
         return assetName;
     }
 
-    public void setAssetName(String assetName) {
+    private void setAssetName(String assetName) {
         this.assetName = assetName;
     }
 
-    public void setAssetName() {
+    private void setAssetName() {
         System.out.print("Asset name: ");
         this.assetName = new Scanner(System.in).nextLine();
     }

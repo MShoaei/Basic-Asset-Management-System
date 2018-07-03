@@ -1,6 +1,7 @@
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 abstract class Asset {
     //private static String ID;
@@ -16,24 +17,24 @@ abstract class Asset {
         setBDate();
     }
 
-    Asset(int ID, String date){
-        lastID++;
-        this.ID = ID;
+    Asset(int id, String date) {
+        this.ID = id;
+        lastID = this.ID;
         setBDate(date);
     }
 
     static void saveAssets(ArrayList<Asset> assets) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase\\AssetsWrite"));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("DataBase\\Assets"));
         for (Asset asset : assets) {
             switch (asset.getClass().getSimpleName()){
                 case "Computer":
                     writer.write(((Computer)asset).toString(true));
                     break;
-                case "Printer":
-//                    writer.write(((Printer)asset).toString(true));
-                    break;
                 case "Switch":
-//                    writer.write(((Switch)asset).toString(true));
+                    writer.write(((Switch)asset).toString(true));
+                    break;
+                case "Printer":
+                    writer.write(((Printer)asset).toString(true));
                     break;
             }
         }
@@ -53,11 +54,11 @@ abstract class Asset {
                 case "Computer":
                     assets.add(new Computer(args));
                     break;
-                case "Printer":
-//                    assets.add(new Printer(args));
-                    break;
                 case "Switch":
-//                    assets.add(new Switch(args));
+                    assets.add(new Switch(args));
+                    break;
+                case "Printer":
+                    assets.add(new Printer(args));
                     break;
             }
         }
@@ -68,11 +69,32 @@ abstract class Asset {
         this.setState(State.RETIRED);
     }
 
+    void editState() {
+        Scanner sc = new Scanner(System.in);
+        String input;
+        System.out.print("Enter State: ");
+        input = sc.nextLine();
+        if (!input.equals(""))
+            setState(input);
+    }
+
+    void editLocation() {
+        Scanner sc = new Scanner(System.in);
+        String input;
+        System.out.print("Enter new location (School,Owner,HoldingPlace): ");
+        input = sc.nextLine();
+        if (!input.equals("")){
+            if (input.split("\\s*,\\s*").length == 3) {
+                this.setLocation(input.split("\\s*,\\s*"));
+            }
+        }
+    }
+
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
+    void setModel(String model) {
         this.model = model;
     }
 
@@ -80,18 +102,41 @@ abstract class Asset {
         return location;
     }
 
-    public void setLocation(Location location) {
+    void setLocation() {
+        // TODO: if the input contains "," the program will break. PLEASE FIX!
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter location information: ");
+
+        System.out.print("  school: ");
+        String school = input.nextLine();
+
+        System.out.print("  owner: ");
+        String owner = input.nextLine();
+
+        System.out.print("  holdingPlace: ");
+        String holdingPlace = input.nextLine();
+
+        setLocation(new Location(school, owner, holdingPlace));
+    }
+
+    private void setLocation(Location location) {
         this.location = location;
     }
 
-    protected abstract void setLocation(String[] location);
+    void setLocation(String[] location){
+        this.location = new Location(location[0],location[1],location[2]);
+    }
 
     public State getState() {
         return state;
     }
 
-    public void setState(State state) {
+    private void setState(State state) {
         this.state = state;
+    }
+
+    void setState(String state){
+        setState(State.valueOf(state.toUpperCase()));
     }
 
     public LocalDate getBDate() {
@@ -104,7 +149,30 @@ abstract class Asset {
         this.BDate = LocalDate.parse(date);
     }
 
-    private void setState() {
+    void setState(AssetType type) {
+        int choice;
+        do {
+
+            System.out.println("Select the current state of this "+type.toString());
+            System.out.println("1- Healthy");
+            System.out.println("2- Broken");
+            System.out.println("3- Retired");
+            System.out.print("Enter the number: ");
+            choice = new Scanner(System.in).nextInt(); // is it efficient?
+        }
+        while (choice>3 || choice<1);
+
+        switch (choice) {
+            case 1:
+                this.setState(State.HEALTHY);
+                break;
+            case 2:
+                this.setState(State.BROKEN);
+                break;
+            case 3:
+                this.setState(State.RETIRED);
+                break;
+        }
     }
 
     public int getID() {
