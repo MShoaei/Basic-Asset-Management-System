@@ -80,31 +80,6 @@ class RepairReport {
         this.type = assetType;
     }
 
-    /*public void setAssetType() {
-        int choice;
-        do {
-            System.out.println("Select the type of asset");
-            System.out.println("1- Computer");
-            System.out.println("2- Switch");
-            System.out.println("3- Printer");
-            System.out.print("Enter the number: ");
-            choice = new Scanner(System.in).nextInt(); // is it efficient?
-        }
-        while (choice>3 || choice<1);
-
-        switch (choice) {
-            case 1:
-                setAssetType(AssetType.COMPUTER);
-                break;
-            case 2:
-                setAssetType(AssetType.SWITCH);
-                break;
-            case 3:
-                setAssetType(AssetType.PRINTER);
-                break;
-        }
-    }*/
-
     public String getCause() {
         return cause;
     }
