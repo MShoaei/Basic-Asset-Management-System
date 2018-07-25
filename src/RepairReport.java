@@ -124,6 +124,6 @@ class RepairReport {
 
     @Override
     public String toString() {
-        return String.format("%d;%s: %s;Cause: %s;Method: %s;%s",getID(), getAssetType(), getAssetName(), getCause(), getRepairMethod(), getRepairDate());
+        return String.format("%d;%s: %s;Cause: %s;Method: %s;%d;%s",getID(), getAssetType(), getAssetName(), getCause(), getRepairMethod(),getEngineerID() ,getRepairDate());
     }
 }
