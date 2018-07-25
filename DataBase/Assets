@@ -1,2 +1,3 @@
 Switch;1:TM:16:true:HEALTHY:TS,TO,THP:2018-07-04
 Printer;2:TM1:true:HEALTHY:TS,TO1,THP1:2018-07-04
+Computer;3:corei7:3:16:1:nvidia1080:BROKEN:it,shamsinejad,office:2018-07-04
